@@ -14,9 +14,9 @@ app.use(bodyParser.json());
 
 });
 // Conexão com MongoDB
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log('Conectado ao MongoDB Atlas!'))
-  .catch(err => console.error('Erro de conexão:', err));
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Conectado ao MongoDB'))
+  .catch(err => console.error('Erro na conexão com MongoDB:', err));
 
 // Modelo de Cliente
 const Cliente = mongoose.model('Cliente', new mongoose.Schema({
@@ -31,7 +31,10 @@ const Cliente = mongoose.model('Cliente', new mongoose.Schema({
   },
   dataCadastro: { type: Date, default: Date.now }
 }));
-
+mongoose.connect(MONGODB_URI, {
+  serverSelectionTimeoutMS: 30000, // 30 segundos
+  socketTimeoutMS: 45000
+});
 // Rotas da API
 // Adicione antes das outras rotas
 app.get('/', (req, res) => {
