@@ -13,9 +13,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Conexão com MongoDB
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Conectado ao MongoDB'))
-  .catch(err => console.error('Erro na conexão com MongoDB:', err));
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('Conectado ao MongoDB Atlas!'))
+  .catch(err => console.error('Erro na conexão:', err));
 
 // Modelo de Cliente
 const Cliente = mongoose.model('Cliente', new mongoose.Schema({
