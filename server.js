@@ -12,9 +12,6 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/client
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect(MONGODB_URI, {
-  serverSelectionTimeoutMS: 30000, // 30 segundos
-  socketTimeoutMS: 45000
 });
 // Conexão com MongoDB
 mongoose.connect(MONGODB_URI)
