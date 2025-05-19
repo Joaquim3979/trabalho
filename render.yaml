@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: api-clientes
-    runtime: node
-    buildCommand: npm install
-    startCommand: node server.js
