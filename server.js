@@ -32,7 +32,15 @@ const Cliente = mongoose.model('Cliente', new mongoose.Schema({
 }));
 
 // Rotas da API
-
+// Adicione antes das outras rotas
+app.get('/', (req, res) => {
+  res.json({
+    message: "API de Clientes funcionando!",
+    endpoints: {
+      clientes: "/clientes"
+    }
+  });
+});
 // GET /clientes - Listar todos os clientes
 app.get('/clientes', async (req, res) => {
   try {
