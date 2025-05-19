@@ -17,6 +17,11 @@ mongoose.connect(MONGODB_URI)
   .then(() => console.log('Conectado ao MongoDB Atlas!'))
   .catch(err => console.error('Erro na conexão:', err));
 
+mongoose.connect(MONGODB_URI, {
+  serverSelectionTimeoutMS: 30000, // 30 segundos
+  socketTimeoutMS: 45000
+});
+
 // Modelo de Cliente
 const Cliente = mongoose.model('Cliente', new mongoose.Schema({
   nome: { type: String, required: true },
@@ -30,10 +35,6 @@ const Cliente = mongoose.model('Cliente', new mongoose.Schema({
   },
   dataCadastro: { type: Date, default: Date.now }
 }));
-mongoose.connect(MONGODB_URI, {
-  serverSelectionTimeoutMS: 30000, // 30 segundos
-  socketTimeoutMS: 45000
-});
 
 // Rotas da API
 // Adicione antes das outras rotas
