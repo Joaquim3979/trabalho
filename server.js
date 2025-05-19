@@ -30,8 +30,11 @@ const Cliente = mongoose.model('Cliente', new mongoose.Schema({
   },
   dataCadastro: { type: Date, default: Date.now }
 }));
-
+mongoose.connect(MONGODB_URI, {
+  serverSelectionTimeoutMS: 30000, // 30 segundos
+  socketTimeoutMS: 45000
 });
+
 // Rotas da API
 // Adicione antes das outras rotas
 app.get('/', (req, res) => {
