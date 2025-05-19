@@ -12,10 +12,14 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/client
 app.use(cors());
 app.use(bodyParser.json());
 
+mongoose.connect(MONGODB_URI, {
+  serverSelectionTimeoutMS: 30000, // 30 segundos
+  socketTimeoutMS: 45000
+});
 // Conexão com MongoDB
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Conectado ao MongoDB'))
-  .catch(err => console.error('Erro na conexão com MongoDB:', err));
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('Conectado ao MongoDB Atlas!'))
+  .catch(err => console.error('Erro de conexão:', err));
 
 // Modelo de Cliente
 const Cliente = mongoose.model('Cliente', new mongoose.Schema({
