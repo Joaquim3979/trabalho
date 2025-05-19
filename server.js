@@ -11,7 +11,21 @@ const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/client
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+let cache = {};
 
+app.get('/clientes', async (req, res) => {
+  if (cache.clientes && Date.now() - cache.timestamp < 30000) {
+    return res.json(cache.clientes);
+  }
+
+  try {
+    const clientes = await Cliente.find().maxTimeMS(30000);
+    cache = { clientes, timestamp: Date.now() };
+    res.json(clientes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 // Conexão com MongoDB
 mongoose.connect(MONGODB_URI)
   .then(() => console.log('Conectado ao MongoDB Atlas!'))
